@@ -1,0 +1,39 @@
+{
+  "name": "api_agendamedica",
+  "version": "1.0.0",
+  "description": "Api para o projeto da faculdade puc minas",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/app.js",
+    "debug": "nodemon --inspect src/app.js",
+    "test": "cross-env port=3000 server_type='test' mocha tests/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rsantanna10/api_agendamedica.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rsantanna10/api_agendamedica/issues"
+  },
+  "homepage": "https://github.com/rsantanna10/api_agendamedica#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cep-promise": "^3.0.9",
+    "chai": "^4.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0",
+    "mariadb": "^2.0.3",
+    "mocha": "^6.1.4",
+    "mysql": "^2.17.1",
+    "mysql2": "^1.6.5",
+    "sequelize": "^5.21.12"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "sequelize-cli": "^5.5.1"
+  }
+}
