@@ -1,12 +1,12 @@
-const tipoEspecialidadeRepository = require('../repositories/tipoEspecialidade');
+const situacaoEventoRepository = require('../repositories/situacaoEvento');
 
 module.exports = class SituacaoConsulta {
 
     static async get(req, res){
         try {      
-            const TipoEspecialidades = await tipoEspecialidadeRepository.getAll();
+            const situacaoEvento = await situacaoEventoRepository.getAll();
 
-            res.status(200).send(TipoEspecialidades);
+            res.status(200).send(situacaoEvento);
         } catch (error) {
             if(error.tipo!=undefined){
                 res.status(400).send(error)
@@ -20,8 +20,8 @@ module.exports = class SituacaoConsulta {
 
     static async getById(req, res){
         try {      
-            const _tipoEspecialidade = await tipoEspecialidadeRepository.getById(req.params.id);
-            res.status(200).send(_tipoEspecialidade);
+            const situacaoEvento = await situacaoEventoRepository.getById(req.params.id);
+            res.status(200).send(situacaoEvento);
         } catch (error) {
             if(error.tipo!=undefined){
                 res.status(400).send(error)
@@ -35,7 +35,7 @@ module.exports = class SituacaoConsulta {
 
     static async insert(req, res){
         try {      
-            await tipoEspecialidadeRepository.insert(req.body.descricao);
+            await situacaoEventoRepository.insert({ descricao:  req.body.descricao });
 
             res.status(200).send();
         } catch (error) {
@@ -51,7 +51,7 @@ module.exports = class SituacaoConsulta {
 
     static async update(req, res){
         try {      
-            await tipoEspecialidadeRepository.update(req.params.id, req.body.descricao);
+            await situacaoEventoRepository.update({ id: req.params.id, descricao: req.body.descricao });
             res.status(200).send();
         } catch (error) {
             if(error.tipo!=undefined){
@@ -66,7 +66,7 @@ module.exports = class SituacaoConsulta {
 
     static async delete(req, res){
         try {      
-            await tipoEspecialidadeRepository.delete(req.params.id);
+            await situacaoEventoRepository.delete(req.params.id);
             res.status(200).send();
         } catch (error) {
             if(error.tipo!=undefined){
