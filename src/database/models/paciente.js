@@ -1,13 +1,18 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-    const tipoEspecialidade = sequelize.define('tipo_especialidades', {
-        descricao: DataTypes.STRING
+    const paciente = sequelize.define('pacientes', {
+        usuarioId: DataTypes.INTEGER,
+        nome: DataTypes.STRING,
+        cpf: DataTypes.STRING,
+        dataNascimento: DataTypes.DATE,
+        sexo: DataTypes.STRING,
+        email: DataTypes.STRING
     }, {});
     
-    tipoEspecialidade.associate = function(models) {
+    paciente.associate = function(models) {
       //  this.hasMany(models.DistribuidoraCidade);
     };
 
-    return tipoEspecialidade; 
+    return paciente; 
 }

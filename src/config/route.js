@@ -36,7 +36,7 @@ module.exports = class Route {
         server.route('/situacaoConsulta/:id').delete(situacaoConsulta.delete);
 
         //Paciente
-        server.route('/paciente').get(paciente.get);
+        server.route('/paciente/user/:id').get(paciente.get);
         server.route('/paciente/:id').get(paciente.getById);
         server.route('/paciente/').post(paciente.insert);
         server.route('/paciente/:id').patch(paciente.update);

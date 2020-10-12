@@ -1,12 +1,12 @@
-const tipoEspecialidadeRepository = require('../repositories/tipoEspecialidade');
+const pacienteRepository = require('../repositories/paciente');
 
 module.exports = class Paciente {
 
     static async get(req, res){
         try {      
-            const TipoEspecialidades = await tipoEspecialidadeRepository.getAll();
+            const pacientes = await pacienteRepository.getByUsuarioId(req.params.id);
 
-            res.status(200).send(TipoEspecialidades);
+            res.status(200).send(pacientes);
         } catch (error) {
             if(error.tipo!=undefined){
                 res.status(400).send(error)
@@ -20,8 +20,8 @@ module.exports = class Paciente {
 
     static async getById(req, res){
         try {      
-            const _tipoEspecialidade = await tipoEspecialidadeRepository.getById(req.params.id);
-            res.status(200).send(_tipoEspecialidade);
+            const _paciente = await pacienteRepository.getById(req.params.id);
+            res.status(200).send(_paciente);
         } catch (error) {
             if(error.tipo!=undefined){
                 res.status(400).send(error)
@@ -35,7 +35,14 @@ module.exports = class Paciente {
 
     static async insert(req, res){
         try {      
-            await tipoEspecialidadeRepository.insert(req.body.descricao);
+            await pacienteRepository.insert({ 
+                usuarioId: req.body.usuarioId,
+                nome: req.body.nome,
+                cpf: req.body.cpf,
+                dataNascimento: req.body.dataNascimento,
+                sexo: req.body.sexo,
+                email: req.body.email
+            });
 
             res.status(200).send();
         } catch (error) {
@@ -51,7 +58,15 @@ module.exports = class Paciente {
 
     static async update(req, res){
         try {      
-            await tipoEspecialidadeRepository.update(req.params.id, req.body.descricao);
+            await pacienteRepository.update({ 
+                id: req.params.id, 
+                usuarioId: req.body.usuarioId,
+                nome: req.body.nome,
+                cpf: req.body.cpf,
+                dataNascimento: req.body.dataNascimento,
+                sexo: req.body.sexo,
+                email: req.body.email
+            });
             res.status(200).send();
         } catch (error) {
             if(error.tipo!=undefined){
@@ -66,7 +81,7 @@ module.exports = class Paciente {
 
     static async delete(req, res){
         try {      
-            await tipoEspecialidadeRepository.delete(req.params.id);
+            await pacienteRepository.delete(req.params.id);
             res.status(200).send();
         } catch (error) {
             if(error.tipo!=undefined){
