@@ -9,6 +9,15 @@ module.exports = {
           primaryKey: true,
           type: DataTypes.INTEGER
       },
+      tipo_especialidade_id: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        references: {
+            model: "tipo_especialidades",
+            key: "id"
+        },
+        onDelete: 'cascade'
+      },
       tipo_usuario: {
         allowNull: false, 
         type: DataTypes.STRING(1)
