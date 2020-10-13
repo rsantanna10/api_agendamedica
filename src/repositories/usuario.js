@@ -41,6 +41,10 @@ module.exports = class Usuario {
          },
          { where: { id: paramUsuario.id } });
     }
+
+    static async updateSenha(id, senha) {
+         await usuario.update({ senha }, { where: { id } });
+    }
     
     static async delete(id) {
         await usuario.destroy({ where: { id } });

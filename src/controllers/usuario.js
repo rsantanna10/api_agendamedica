@@ -86,6 +86,22 @@ module.exports = class Usuario {
         }
     }
 
+    static async updateSenha(req, res){
+        try {      
+            await usuarioRepository.updateSenha(req.params.id, req.body.senha);
+            
+            res.status(200).send();
+        } catch (error) {
+            if(error.tipo!=undefined){
+                res.status(400).send(error)
+            }else{
+                res.status(500).send({erro:"erro interno"})
+            }
+            console.log(error);
+            
+        }
+    }
+
     static async delete(req, res){
         try {      
             await usuarioRepository.delete(req.params.id);

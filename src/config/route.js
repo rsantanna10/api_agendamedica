@@ -48,9 +48,10 @@ module.exports = class Route {
         server.route('/usuario/').post(usuario.insert);
         server.route('/usuario/:id').patch(usuario.update);
         server.route('/usuario/:id').delete(usuario.delete);
+        server.route('/usuario/senha/:id').post(usuario.updateSenha);
 
-        server.route('/configuracao/:id').get(configuracao.get);
-        server.route('/configuracao/:id').patch(configuracao.update);       
+        server.route('/configuracao/usuario/:id').get(configuracao.get);
+        server.route('/configuracao/usuario/:id').patch(configuracao.update);       
         
 	   return server;
     }

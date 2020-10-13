@@ -8,6 +8,7 @@ const TipoEvento = require('./models/tipoEvento');
 const SituacaoEvento = require('./models/situacaoEvento');
 const Paciente = require('./models/paciente');
 const Usuario = require('./models/usuario');
+const Configuracao = require('./models/configuracao');
 
 const sequelize = new Sequelize(dbConfig);
 
@@ -16,7 +17,8 @@ const models = {
     TipoEvento: TipoEvento(sequelize, Sequelize),
     SituacaoEvento: SituacaoEvento(sequelize, Sequelize),
     Paciente: Paciente(sequelize, Sequelize),
-    Usuario: Usuario(sequelize, Sequelize)
+    Usuario: Usuario(sequelize, Sequelize),
+    Configuracao: Configuracao(sequelize, Sequelize)
 };
 
 Object.values(models)
