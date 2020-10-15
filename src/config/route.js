@@ -54,6 +54,7 @@ module.exports = class Route {
 
         //Autenticação
         server.route('/login').post(usuario.auth);
+        server.route('/loginGoogle').post(usuario.authGoogle);
         
 	   return server;
     }

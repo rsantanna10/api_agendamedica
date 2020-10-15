@@ -165,7 +165,47 @@ module.exports = class Usuario {
             console.log(error);
             
         }
+    }
 
+    static async authGoogle(req, res) {
+        //Geração de token
+        const generateToken = (params = {}) => {
+            return jwt.sign(params, secret, {
+                expiresIn: 86400,
+            });        
+        }
 
+        const { login } = req.body;    
+
+        try {      
+            let usuario = await usuarioRepository.getByLogin(login);
+
+            if (usuario.length === 0) 
+                return res.status(400).send({ error: 'Usuário não encontrado' });
+
+            usuario = usuario[0];
+
+            const _usuario = { 
+                id : usuario.id, 
+                nome: usuario.nome, 
+                tipoUsuario: usuario.tipoUsuario, 
+                tipoEspecialidade: usuario['tipo_especialidades.descricao']
+            };
+
+            res.send({ 
+                usuario: _usuario, 
+                token: generateToken(_usuario)
+            });
+
+            res.status(200).send();
+        } catch (error) {
+            if(error.tipo!=undefined){
+                res.status(400).send(error)
+            }else{
+                res.status(500).send({erro:"erro interno"})
+            }
+            console.log(error);
+            
+        }
     }
 }
