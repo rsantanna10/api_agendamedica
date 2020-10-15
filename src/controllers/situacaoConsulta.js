@@ -6,6 +6,8 @@ module.exports = class SituacaoConsulta {
         try {      
             const situacaoEvento = await situacaoEventoRepository.getAll();
 
+            console.log(req.nome);
+
             res.status(200).send(situacaoEvento);
         } catch (error) {
             if(error.tipo!=undefined){

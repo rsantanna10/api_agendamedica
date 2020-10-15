@@ -7,7 +7,8 @@ module.exports = (sequelize, DataTypes) => {
         cpf: DataTypes.STRING,
         dataNascimento: DataTypes.DATE,
         sexo: DataTypes.STRING,
-        email: DataTypes.STRING
+        email: DataTypes.STRING,
+        telefone: DataTypes.STRING
     }, {});
     
     paciente.associate = function(models) {

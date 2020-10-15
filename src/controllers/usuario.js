@@ -1,4 +1,7 @@
 const usuarioRepository = require('../repositories/usuario');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const secret = require('../config/auth.js');
 
 module.exports = class Usuario {
 
@@ -13,8 +16,7 @@ module.exports = class Usuario {
             }else{
                 res.status(500).send({erro:"erro interno"})
             }
-            console.log(error);
-            
+            console.log(error);            
         }
     }
 
@@ -45,7 +47,7 @@ module.exports = class Usuario {
                     tipoUsuario: req.body.tipoUsuario,
                     nome: req.body.nome,
                     login: req.body.login,
-                    senha: req.body.senha,
+                    senha: await bcrypt.hash(req.body.senha, 10),
                     ativo: req.body.ativo
                 });
 
@@ -70,7 +72,7 @@ module.exports = class Usuario {
                 tipoUsuario: req.body.tipoUsuario,
                 nome: req.body.nome,
                 login: req.body.login,
-                senha: req.body.senha,
+                senha: await bcrypt.hash(req.body.senha, 10),
                 ativo: req.body.ativo
             });
             
@@ -88,7 +90,9 @@ module.exports = class Usuario {
 
     static async updateSenha(req, res){
         try {      
-            await usuarioRepository.updateSenha(req.params.id, req.body.senha);
+            
+            const senha = await bcrypt.hash(req.body.senha, 10);
+            await usuarioRepository.updateSenha(req.params.id, senha);
             
             res.status(200).send();
         } catch (error) {
@@ -115,5 +119,53 @@ module.exports = class Usuario {
             console.log(error);
             
         }
+    }
+
+    
+    static async auth(req, res) {
+        //Geração de token
+        const generateToken = (params = {}) => {
+            return jwt.sign(params, secret, {
+                expiresIn: 86400,
+            });        
+        }
+
+        const { login, senha } = req.body;    
+
+        try {      
+            let usuario = await usuarioRepository.getByLogin(login);
+
+            if (usuario.length === 0) 
+                return res.status(400).send({ error: 'Usuário não encontrado' });
+
+            usuario = usuario[0];
+
+            if (!await bcrypt.compare(senha, usuario.senha))
+                return res.status(400).send({ error: 'Senha Inválida' });
+
+            const _usuario = { 
+                id : usuario.id, 
+                nome: usuario.nome, 
+                tipoUsuario: usuario.tipoUsuario, 
+                tipoEspecialidade: usuario['tipo_especialidades.descricao']
+            };
+
+            res.send({ 
+                usuario: _usuario, 
+                token: generateToken(_usuario)
+            });
+
+            res.status(200).send();
+        } catch (error) {
+            if(error.tipo!=undefined){
+                res.status(400).send(error)
+            }else{
+                res.status(500).send({erro:"erro interno"})
+            }
+            console.log(error);
+            
+        }
+
+
     }
 }

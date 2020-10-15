@@ -38,6 +38,10 @@ module.exports = {
         allowNull: false, 
         type: DataTypes.STRING
       },
+      telefone: {
+        allowNull: false, 
+        type: DataTypes.STRING(11)
+      },
       created_at: {
           allowNull: false,
           type: DataTypes.DATE

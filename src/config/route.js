@@ -1,5 +1,4 @@
-//const main = require('../controllers/main');
-//const auth = require('../middlewares/auth');
+const auth = require('../middleware/auth');
 const tipoEspecialidade = require('../controllers/tipoEspecialidade');
 const tipoConsulta = require('../controllers/tipoConsulta');
 const situacaoConsulta = require('../controllers/situacaoConsulta');
@@ -29,11 +28,11 @@ module.exports = class Route {
         server.route('/tipoConsulta/:id').delete(tipoConsulta.delete);
 
         //Situação consulta
-        server.route('/situacaoConsulta').get(situacaoConsulta.get);
-        server.route('/situacaoConsulta/:id').get(situacaoConsulta.getById);
-        server.route('/situacaoConsulta/').post(situacaoConsulta.insert);
-        server.route('/situacaoConsulta/:id').patch(situacaoConsulta.update);
-        server.route('/situacaoConsulta/:id').delete(situacaoConsulta.delete);
+        server.route('/situacaoConsulta').get(auth).get(situacaoConsulta.get);
+        server.route('/situacaoConsulta/:id').get(auth).get(situacaoConsulta.getById);
+        server.route('/situacaoConsulta/').get(auth).post(situacaoConsulta.insert);
+        server.route('/situacaoConsulta/:id').get(auth).patch(situacaoConsulta.update);
+        server.route('/situacaoConsulta/:id').get(auth).delete(situacaoConsulta.delete);
 
         //Paciente
         server.route('/paciente/user/:id').get(paciente.get);
@@ -52,6 +51,9 @@ module.exports = class Route {
 
         server.route('/configuracao/usuario/:id').get(configuracao.get);
         server.route('/configuracao/usuario/:id').patch(configuracao.update);       
+
+        //Autenticação
+        server.route('/login').post(usuario.auth);
         
 	   return server;
     }

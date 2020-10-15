@@ -34,7 +34,8 @@ module.exports = class SituacaoEvento {
             cpf: paramPaciente.cpf,
             dataNascimento: paramPaciente.dataNascimento,
             sexo: paramPaciente.sexo,
-            email: paramPaciente.email
+            email: paramPaciente.email,
+            telefone: paramPaciente.telefone
         });
         await _paciente.save();
     }
@@ -46,7 +47,8 @@ module.exports = class SituacaoEvento {
             cpf: paramPaciente.cpf,
             dataNascimento: paramPaciente.dataNascimento,
             sexo: paramPaciente.sexo,
-            email: paramPaciente.email
+            email: paramPaciente.email,
+            telefone: paramPaciente.telefone
          },
          { where: { id: paramPaciente.id } });
     }

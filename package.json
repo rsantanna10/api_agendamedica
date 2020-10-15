@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/rsantanna10/api_agendamedica#readme",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cep-promise": "^3.0.9",
     "chai": "^4.2.0",
@@ -26,6 +27,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "helmet": "^3.22.0",
+    "jsonwebtoken": "^8.5.1",
     "mariadb": "^2.0.3",
     "mocha": "^6.1.4",
     "mysql": "^2.17.1",

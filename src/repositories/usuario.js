@@ -11,11 +11,11 @@ module.exports = class Usuario {
     }
 
     static async getAll() {
-        return await usuario.findAll( { include: "tipo_especialidades" });
+        return await usuario.findAll( { include: "tipo_especialidades" }  );
     }
 
     static async getByLogin(login) {
-        return await usuario.findAll( { where: { login } });
+        return await usuario.findAll( { include: "tipo_especialidades", where: { login }, raw: true });
     }
 
     static async insert(paramUsuario) {

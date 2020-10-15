@@ -35,13 +35,15 @@ module.exports = class Paciente {
 
     static async insert(req, res){
         try {      
+            console.log(' tel =< ' + req.body.celular);
             await pacienteRepository.insert({ 
                 usuarioId: req.body.usuarioId,
                 nome: req.body.nome,
                 cpf: req.body.cpf,
                 dataNascimento: req.body.dataNascimento,
                 sexo: req.body.sexo,
-                email: req.body.email
+                email: req.body.email,
+                telefone: req.body.telefone
             });
 
             res.status(200).send();
@@ -65,7 +67,8 @@ module.exports = class Paciente {
                 cpf: req.body.cpf,
                 dataNascimento: req.body.dataNascimento,
                 sexo: req.body.sexo,
-                email: req.body.email
+                email: req.body.email,
+                telefone: req.body.telefone
             });
             res.status(200).send();
         } catch (error) {
