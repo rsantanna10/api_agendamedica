@@ -15,17 +15,17 @@ module.exports = class Route {
     main(server){
        //Tipo especialidade
         server.route('/tipoEspecialidade').get(tipoEspecialidade.get);
-        server.route('/tipoEspecialidade/:id').get(tipoEspecialidade.getById);
-        server.route('/tipoEspecialidade/').post(tipoEspecialidade.insert);
-        server.route('/tipoEspecialidade/:id').patch(tipoEspecialidade.update);
-        server.route('/tipoEspecialidade/:id').delete(tipoEspecialidade.delete);
+        server.route('/tipoEspecialidade/:id').get(auth).get(tipoEspecialidade.getById);
+        server.route('/tipoEspecialidade/').get(auth).post(tipoEspecialidade.insert);
+        server.route('/tipoEspecialidade/:id').get(auth).patch(tipoEspecialidade.update);
+        server.route('/tipoEspecialidade/:id').get(auth).delete(tipoEspecialidade.delete);
 
          //Tipo consulta
-        server.route('/tipoConsulta').get(tipoConsulta.get);
-        server.route('/tipoConsulta/:id').get(tipoConsulta.getById);
-        server.route('/tipoConsulta/').post(tipoConsulta.insert);
-        server.route('/tipoConsulta/:id').patch(tipoConsulta.update);
-        server.route('/tipoConsulta/:id').delete(tipoConsulta.delete);
+        server.route('/tipoConsulta').get(auth).get(tipoConsulta.get);
+        server.route('/tipoConsulta/:id').get(auth).get(tipoConsulta.getById);
+        server.route('/tipoConsulta/').get(auth).post(tipoConsulta.insert);
+        server.route('/tipoConsulta/:id').get(auth).patch(tipoConsulta.update);
+        server.route('/tipoConsulta/:id').get(auth).delete(tipoConsulta.delete);
 
         //Situação consulta
         server.route('/situacaoConsulta').get(auth).get(situacaoConsulta.get);
@@ -35,19 +35,19 @@ module.exports = class Route {
         server.route('/situacaoConsulta/:id').get(auth).delete(situacaoConsulta.delete);
 
         //Paciente
-        server.route('/paciente/user/:id').get(paciente.get);
-        server.route('/paciente/:id').get(paciente.getById);
-        server.route('/paciente/').post(paciente.insert);
-        server.route('/paciente/:id').patch(paciente.update);
-        server.route('/paciente/:id').delete(paciente.delete);
+        server.route('/paciente/user/:id').get(auth).get(paciente.get);
+        server.route('/paciente/:id').get(auth).get(paciente.getById);
+        server.route('/paciente/').get(auth).post(paciente.insert);
+        server.route('/paciente/:id').get(auth).patch(paciente.update);
+        server.route('/paciente/:id').get(auth).delete(paciente.delete);
 
         //Usuário
-        server.route('/usuario').get(usuario.get);
-        server.route('/usuario/:id').get(usuario.getById);
-        server.route('/usuario/').post(usuario.insert);
-        server.route('/usuario/:id').patch(usuario.update);
-        server.route('/usuario/:id').delete(usuario.delete);
-        server.route('/usuario/senha/:id').post(usuario.updateSenha);
+        server.route('/usuario').get(auth).get(usuario.get);
+        server.route('/usuario/:id').get(auth).get(usuario.getById);
+        server.route('/usuario/').get(auth).post(usuario.insert);
+        server.route('/usuario/:id').get(auth).patch(usuario.update);
+        server.route('/usuario/:id').get(auth).delete(usuario.delete);
+        server.route('/usuario/senha/:id').get(auth).post(usuario.updateSenha);
 
         server.route('/configuracao/usuario/:id').get(configuracao.get);
         server.route('/configuracao/usuario/:id').patch(configuracao.update);       
