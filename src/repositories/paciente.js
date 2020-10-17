@@ -1,5 +1,6 @@
 'use strict';
 
+var Sequelize = require("sequelize");
 const db = require('../database');
 
 const paciente = db.Paciente;
@@ -20,6 +21,36 @@ module.exports = class SituacaoEvento {
         
         return pacientes;
     }
+
+    static async getLast(id, limit) {
+        const pacientes = await paciente.findAll({
+            limit: parseInt(limit),
+            where: { usuario_id: id 
+            },
+            order: [ [ 'id', 'DESC' ]],
+            raw : true
+        });
+        
+        return pacientes;
+    }
+    
+    static async getQtd(id, limit) {
+        const pacientes = await paciente.findAll({
+            where: { usuario_id: id,
+                     $and: Sequelize.where(Sequelize.fn("month", Sequelize.col("created_at")), new Date().getMonth() + 1)
+            },
+            attributes: [
+                    [Sequelize.fn('DATE', Sequelize.col('created_at')), 'created_at'], 
+                    [Sequelize.fn('count', Sequelize.col('id')), 'total']
+                ],
+            group: [Sequelize.fn('DATE', Sequelize.col('created_at'))],
+            order: [ [ 'created_at', 'ASC' ]],
+            raw : true
+        });
+        
+        return pacientes;
+    }
+    
 
     static async getAll() {
         return await paciente.findAll({

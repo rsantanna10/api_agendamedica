@@ -4,7 +4,7 @@ module.exports = class Evento {
 
     static async get(req, res){
         try {      
-            const eventos = await eventoRepository.getAll();
+            const eventos = await eventoRepository.getUsuarioId(req.params.id);
 
             res.status(200).send(eventos);
         } catch (error) {
@@ -22,6 +22,52 @@ module.exports = class Evento {
         try {      
             const _paciente = await pacienteRepository.getById(req.params.id);
             res.status(200).send(_paciente);
+        } catch (error) {
+            if(error.tipo!=undefined){
+                res.status(400).send(error)
+            }else{
+                res.status(500).send({erro:"erro interno"})
+            }
+            console.log(error);
+            
+        }
+    }
+
+    static async getNext(req, res){
+        try {      
+            const eventos = await eventoRepository.getNext(req.params.id, req.params.limit);
+
+            res.status(200).send(eventos);
+        } catch (error) {
+            if(error.tipo!=undefined){
+                res.status(400).send(error)
+            }else{
+                res.status(500).send({erro:"erro interno"})
+            }
+            console.log(error);
+            
+        }
+    }
+
+    static async getQtd(req, res){
+        try {      
+            const eventos = await eventoRepository.getQtd(req.params.id);
+            res.status(200).send(eventos);
+        } catch (error) {
+            if(error.tipo!=undefined){
+                res.status(400).send(error)
+            }else{
+                res.status(500).send({erro:"erro interno"})
+            }
+            console.log(error);
+            
+        }
+    }
+
+    static async getPct(req, res){
+        try {      
+            const eventos = await eventoRepository.getPct(req.params.id);
+            res.status(200).send(eventos);
         } catch (error) {
             if(error.tipo!=undefined){
                 res.status(400).send(error)

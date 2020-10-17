@@ -49,6 +49,38 @@ module.exports = class Paciente {
         }
     }
 
+    static async getLast(req, res){
+        try {      
+            const _paciente = await pacienteRepository.getLast(req.params.id, req.params.limit);
+            res.status(200).send(_paciente);
+        } catch (error) {
+            if(error.tipo!=undefined){
+                res.status(400).send(error)
+            }else{
+                res.status(500).send({erro:"erro interno"})
+            }
+            console.log(error);
+            
+        }
+    }
+
+    static async getQtd(req, res){
+        try {      
+            const _paciente = await pacienteRepository.getQtd(req.params.id, req.params.limit);
+            res.status(200).send(_paciente);
+        } catch (error) {
+            if(error.tipo!=undefined){
+                res.status(400).send(error)
+            }else{
+                res.status(500).send({erro:"erro interno"})
+            }
+            console.log(error);
+            
+        }
+    }
+
+    
+
     static async insert(req, res){
         try {      
             await pacienteRepository.insert({ 

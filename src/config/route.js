@@ -42,6 +42,8 @@ module.exports = class Route {
         server.route('/paciente/:id').get(auth).patch(paciente.update);
         server.route('/paciente/:id').get(auth).delete(paciente.delete);
         server.route('/paciente/cpf/:cpf').get(paciente.getByCpf);
+        server.route('/paciente/:id/last/:limit').get(paciente.getLast);
+        server.route('/paciente/:id/qtd').get(paciente.getQtd);
 
         //Usuário
         server.route('/usuario').get(auth).get(usuario.get);
@@ -57,7 +59,10 @@ module.exports = class Route {
 
         //Evento
         server.route('/evento').post(evento.insert);
-        server.route('/evento').get(evento.get);
+        server.route('/evento/:id').get(evento.get);
+        server.route('/evento/:id/next/limit/:limit').get(evento.getNext);
+        server.route('/evento/:id/qtd').get(evento.getQtd);
+        server.route('/evento/:id/pct').get(evento.getPct);
         server.route('/evento/:id').patch(evento.update);
         server.route('/evento/:id').delete(evento.delete);
 
