@@ -1,16 +1,24 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-    const usuario = sequelize.define('usuarios', {
-      dataAtendimento: DataTypes.DATE,   
-      horaInicio: DataTypes.STRING(5),
-      horaFim: DataTypes.STRING(5),
-      observacao: DataTypes.STRING(1000)
+    const evento = sequelize.define('eventos', {
+      usuarioId: DataTypes.INTEGER,
+      tipoEventoId: DataTypes.INTEGER,
+      pacienteId: DataTypes.INTEGER,
+      situacaoEventoId: DataTypes.INTEGER,
+      nome: DataTypes.STRING,
+      cpf: DataTypes.STRING,
+      dataInicioAtendimento: DataTypes.DATE,
+      dataFimAtendimento: DataTypes.DATE,
+      telefone: DataTypes.STRING(11),
+      observacao: DataTypes.STRING(11)
     }, {});
     
-    usuario.associate = function(models) {
-      this.belongsTo(models.tipoEspecialidade, { foreignKey: 'tipoEspecialidadeId', as: 'tipo_especialidade' })
+    evento.associate = function(models) {
+      this.belongsTo(models.TipoEvento, { foreignKey: 'tipoEventoId', as: 'paciente' });
+      this.belongsTo(models.Paciente, { foreignKey: 'pacienteId', as: 'tipo_evento' });
+      this.belongsTo(models.SituacaoEvento, { foreignKey: 'situacaoEventoId', as: 'situacao_evento' });
     };
 
-    return usuario; 
+    return evento; 
 }

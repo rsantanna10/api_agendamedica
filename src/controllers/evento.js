@@ -1,28 +1,12 @@
-const pacienteRepository = require('../repositories/paciente');
+const eventoRepository = require('../repositories/evento');
 
-module.exports = class Paciente {
+module.exports = class Evento {
 
     static async get(req, res){
         try {      
-            const pacientes = await pacienteRepository.getByUsuarioId(req.params.id);
+            const eventos = await eventoRepository.getAll();
 
-            res.status(200).send(pacientes);
-        } catch (error) {
-            if(error.tipo!=undefined){
-                res.status(400).send(error)
-            }else{
-                res.status(500).send({erro:"erro interno"})
-            }
-            console.log(error);
-            
-        }
-    }
-
-    static async getByCpf(req, res){
-        try {      
-            const paciente = await pacienteRepository.getByCpf(req.params.cpf);
-
-            res.status(200).send(paciente);
+            res.status(200).send(eventos);
         } catch (error) {
             if(error.tipo!=undefined){
                 res.status(400).send(error)
@@ -50,18 +34,25 @@ module.exports = class Paciente {
     }
 
     static async insert(req, res){
-        try {      
-            await pacienteRepository.insert({ 
+        try {   
+            
+            const evento = { 
                 usuarioId: req.body.usuarioId,
-                nome: req.body.nome,
-                cpf: req.body.cpf,
-                dataNascimento: req.body.dataNascimento,
-                sexo: req.body.sexo,
-                email: req.body.email,
-                telefone: req.body.telefone
-            });
+                 tipoEventoId: req.body.tipoEventoId, 
+                 pacienteId: req.body.pacienteId,  
+                 situacaoEventoId: req.body.situacaoEventoId,
+                 nome: req.body.nome,
+                 cpf: req.body.cpf,
+                 dataInicioAtendimento: req.body.dataInicioAtendimento,
+                 dataFimAtendimento: req.body.dataFimAtendimento,
+                 telefone: req.body.telefone,
+                observacao: req.body.observacao
+            };
 
-            res.status(200).send();
+            console.log(evento);
+            const _evento = await eventoRepository.insert(evento);
+
+            res.status(200).send(_evento);
         } catch (error) {
             if(error.tipo!=undefined){
                 res.status(400).send(error)
@@ -74,17 +65,24 @@ module.exports = class Paciente {
     }
 
     static async update(req, res){
-        try {      
-            await pacienteRepository.update({ 
+        try {    
+
+            const evento = { 
                 id: req.params.id, 
                 usuarioId: req.body.usuarioId,
+                tipoEventoId: req.body.tipoEventoId, 
+                pacienteId: req.body.pacienteId,  
+                situacaoEventoId: req.body.situacaoEventoId,
                 nome: req.body.nome,
                 cpf: req.body.cpf,
-                dataNascimento: req.body.dataNascimento,
-                sexo: req.body.sexo,
-                email: req.body.email,
-                telefone: req.body.telefone
-            });
+                dataInicioAtendimento: req.body.dataInicioAtendimento,
+                dataFimAtendimento: req.body.dataFimAtendimento,
+                telefone: req.body.telefone,
+               observacao: req.body.observacao
+           };
+
+           await eventoRepository.update(evento);
+
             res.status(200).send();
         } catch (error) {
             if(error.tipo!=undefined){
@@ -99,7 +97,7 @@ module.exports = class Paciente {
 
     static async delete(req, res){
         try {      
-            await pacienteRepository.delete(req.params.id);
+            await eventoRepository.delete(req.params.id);
             res.status(200).send();
         } catch (error) {
             if(error.tipo!=undefined){

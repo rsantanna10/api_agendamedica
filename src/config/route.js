@@ -5,6 +5,7 @@ const situacaoConsulta = require('../controllers/situacaoConsulta');
 const paciente = require('../controllers/paciente');
 const usuario = require('../controllers/usuario');
 const configuracao = require('../controllers/configuracao');
+const evento = require('../controllers/evento');
 
 module.exports = class Route {
     constructor(server){
@@ -40,6 +41,7 @@ module.exports = class Route {
         server.route('/paciente/').get(auth).post(paciente.insert);
         server.route('/paciente/:id').get(auth).patch(paciente.update);
         server.route('/paciente/:id').get(auth).delete(paciente.delete);
+        server.route('/paciente/cpf/:cpf').get(paciente.getByCpf);
 
         //Usuário
         server.route('/usuario').get(auth).get(usuario.get);
@@ -49,8 +51,15 @@ module.exports = class Route {
         server.route('/usuario/:id').get(auth).delete(usuario.delete);
         server.route('/usuario/senha/:id').get(auth).post(usuario.updateSenha);
 
+        //Configuração
         server.route('/configuracao/usuario/:id').get(configuracao.get);
         server.route('/configuracao/usuario/:id').patch(configuracao.update);       
+
+        //Evento
+        server.route('/evento').post(evento.insert);
+        server.route('/evento').get(evento.get);
+        server.route('/evento/:id').patch(evento.update);
+        server.route('/evento/:id').delete(evento.delete);
 
         //Autenticação
         server.route('/login').post(usuario.auth);

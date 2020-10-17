@@ -27,6 +27,14 @@ module.exports = class SituacaoEvento {
         });
     }
 
+    static async getByCpf(cpf) {
+        return await paciente.findOne({where: { cpf },
+            attributes: [ 'id', 'usuarioId', 'nome', 'cpf', 'dataNascimento', 'sexo', 'telefone', 'email']
+        });
+    }
+
+    
+
     static async insert(paramPaciente) {
         const _paciente = paciente.build({ 
             usuarioId: paramPaciente.usuarioId,

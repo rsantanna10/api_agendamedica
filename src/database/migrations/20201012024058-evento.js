@@ -9,15 +9,6 @@ module.exports = {
           primaryKey: true,
           type: DataTypes.INTEGER
       },
-      usuario_id: {
-        allowNull: false,
-        type: DataTypes.INTEGER,
-        references: {
-            model: "usuarios",
-            key: "id"
-        },
-        onDelete: 'cascade'        
-      },
       tipo_evento_id: {
         allowNull: false,
         type: DataTypes.INTEGER,
@@ -27,20 +18,55 @@ module.exports = {
         },
         onDelete: 'cascade'        
       },
-      data_atendimento: {
+      paciente_id: {
+        allowNull: true,
+        type: DataTypes.INTEGER,
+        references: {
+            model: "pacientes",
+            key: "id"
+        },
+        onDelete: 'cascade'        
+      },
+      situacao_evento_id: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        references: {
+            model: "situacao_eventos",
+            key: "id"
+        },
+        onDelete: 'cascade'        
+      },
+      usuario_id: {
+        allowNull: false,
+        type: DataTypes.INTEGER,
+        references: {
+            model: "usuarios",
+            key: "id"
+        },
+        onDelete: 'cascade'        
+      },
+      nome: {
+        allowNull: true,
+        type: DataTypes.STRING
+      },
+      cpf: {
+        allowNull: false,
+        type: DataTypes.STRING(11)
+      },
+      data_inicio_atendimento: {
         allowNull: false,
         type: DataTypes.DATE
       },
-      hora_inicio: {
+      data_fim_atendimento: {
         allowNull: false,
-        type: DataTypes.STRING(5)
+        type: DataTypes.DATE
       },
-      hora_fim: {
-        allowNull: false,
-        type: DataTypes.STRING(5)
+      telefone: {
+        allowNull: true,
+        type: DataTypes.STRING(11)
       },
       observacao: {
-        allowNull: false,
+        allowNull: true,
         type: DataTypes.STRING(1000)
       },
       created_at: {

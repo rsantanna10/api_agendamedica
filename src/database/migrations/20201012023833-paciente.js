@@ -27,19 +27,19 @@ module.exports = {
         type: DataTypes.STRING(11)
       },
       data_nascimento: {
-        allowNull: false, 
+        allowNull: true, 
         type: DataTypes.DATE
       },
       sexo: {
-        allowNull: false, 
+        allowNull: true, 
         type: DataTypes.STRING(1)
       },
       email: {
-        allowNull: false, 
+        allowNull: true, 
         type: DataTypes.STRING
       },
       telefone: {
-        allowNull: false, 
+        allowNull: true, 
         type: DataTypes.STRING(11)
       },
       created_at: {
