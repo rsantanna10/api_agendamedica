@@ -31,14 +31,19 @@ module.exports = class Usuario {
     }
 
     static async update(paramUsuario) {
-        await usuario.update({ 
+
+        const _usuario = { 
             tipoEspecialidadeId: paramUsuario.tipoEspecialidadeId,
             tipoUsuario: paramUsuario.tipoUsuario,
             nome: paramUsuario.nome,
             login: paramUsuario.login,
-            senha: paramUsuario.senha,
             ativo: paramUsuario.ativo
-         },
+         };
+
+         if(paramUsuario.senha !== '')
+            _usuario.senha = paramUsuario.senha;
+
+        await usuario.update(_usuario,
          { where: { id: paramUsuario.id } });
     }
 
