@@ -20,7 +20,7 @@ module.exports = class Paciente {
 
     static async getByCpf(req, res){
         try {      
-            const paciente = await pacienteRepository.getByCpf(req.params.cpf);
+            const paciente = await pacienteRepository.getByCpf(req.params.id, req.params.cpf);
 
             res.status(200).send(paciente);
         } catch (error) {

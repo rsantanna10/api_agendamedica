@@ -14,7 +14,7 @@ module.exports = class SituacaoEvento {
      }
 
      static async getNext(usuarioId, limit) {
-        return await evento.findAll({ limit: parseInt(limit), where: { usuarioId, data_inicio_atendimento: { [Op.gte]: new Date() }}});
+        return await evento.findAll({ limit: parseInt(limit), where: { usuarioId, situacao_evento_id: { [Op.ne]: 3 }, data_inicio_atendimento: { [Op.gte]: new Date() }}});
     }
 
     

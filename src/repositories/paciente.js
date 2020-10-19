@@ -58,8 +58,8 @@ module.exports = class SituacaoEvento {
         });
     }
 
-    static async getByCpf(cpf) {
-        return await paciente.findOne({where: { cpf },
+    static async getByCpf(id, cpf) {
+        return await paciente.findOne({where: { usuario_id: id, cpf },
             attributes: [ 'id', 'usuarioId', 'nome', 'cpf', 'dataNascimento', 'sexo', 'telefone', 'email']
         });
     }

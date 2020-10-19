@@ -41,7 +41,7 @@ module.exports = class Route {
         server.route('/paciente/').get(auth).post(paciente.insert);
         server.route('/paciente/:id').get(auth).patch(paciente.update);
         server.route('/paciente/:id').get(auth).delete(paciente.delete);
-        server.route('/paciente/cpf/:cpf').get(paciente.getByCpf);
+        server.route('/paciente/usuario/:id/cpf/:cpf').get(paciente.getByCpf);
         server.route('/paciente/:id/last/:limit').get(paciente.getLast);
         server.route('/paciente/:id/qtd').get(paciente.getQtd);
 
